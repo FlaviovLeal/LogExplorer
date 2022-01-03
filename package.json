@@ -10,7 +10,9 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:blueprint.helloWorld"
+        "onCommand:blueprint.helloWorld",
+		"onCommand:blueprint.HowDay"
+
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -18,6 +20,10 @@
 			{
 				"command": "blueprint.helloWorld",
 				"title": "Hello World"
+			},
+			{
+				"command": "blueprint.HowDay",
+				"title": "How is your day"
 			}
 		]
 	},
