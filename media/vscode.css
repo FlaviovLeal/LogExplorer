@@ -8,7 +8,7 @@
   
   body {
     padding: 0 var(--container-paddding);
-    color: var(--vscode-foreground);
+    color: m;
     font-size: var(--vscode-font-size);
     font-weight: var(--vscode-font-weight);
     font-family: var(--vscode-font-family);
@@ -53,9 +53,11 @@
     outline-offset: 2px !important;
     color: var(--vscode-button-foreground);
     background: var(--vscode-button-background);
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
   
-  button:hover {
+  m {
     cursor: pointer;
     background: var(--vscode-button-hoverBackground);
   }
@@ -88,4 +90,45 @@
   input::placeholder,
   textarea::placeholder {
     color: var(--vscode-input-placeholderForeground);
+  }
+
+  .sidenavopen {
+    height: 100%;
+    width: 30%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0px;
+    background-color: rgb(37,37,38);
+    overflow-x: hidden;
+    padding: 20px 10px;
+    margin-top: 0px;
+  }
+  .sidenavclosed {
+    height: 100%;
+    width: 0px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+
+  .mainopen {
+    margin-right: 0px; /* Same as the width of the sidenav */
+  }
+
+  .mainclosed {
+    margin-right: 30%; /* Same as the width of the sidenav */
+  }
+
+  .clickable {
+    cursor: pointer;
+    padding: 20px;
+  }
+  .clickable:hover {
+    border-color: rgb(0,0,0);
+    border-style: solid;
+    border-width: 5px;
   }

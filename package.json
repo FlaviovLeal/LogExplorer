@@ -11,7 +11,8 @@
   ],
   "activationEvents": [
     "onCommand:blueprint.helloWorld",
-    "onCommand:blueprint.HowDay"
+    "onCommand:blueprint.HowDay",
+    "onCustomEditor:jsonExplorer.test"
   ],
   "main": "./dist/extension.js",
   "contributes": {

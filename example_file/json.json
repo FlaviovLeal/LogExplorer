@@ -1,0 +1,10 @@
+[
+{"level": "error", "message": "found error", "id": 1, "optional field": "extra message"},
+{"level": "error", "message": "found error", "id": 2, "optional field": "extra message"},
+{"level": "error", "message": "found error", "id": 3},
+{"level": "info", "message": "found info", "id": 4},
+{"level": "info", "message": "found info", "id": 5},
+{"level": "info", "message": "found info", "id": 6},
+{"level": "info", "message": "found info", "id": 7},
+{"level": "info", "message": "found info", "id": 8}
+]

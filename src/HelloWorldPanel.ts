@@ -9,7 +9,7 @@ export class HelloWorldPanel {
 
   public static readonly viewType = "hello-world";
 
-  private readonly _panel: vscode.WebviewPanel;
+  readonly _panel: vscode.WebviewPanel;
   private readonly _extensionUri: vscode.Uri;
   private _disposables: vscode.Disposable[] = [];
 
@@ -65,18 +65,18 @@ export class HelloWorldPanel {
     // This happens when the user closes the panel or when the panel is closed programatically
     this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
 
-    // // Handle messages from the webview
-    // this._panel.webview.onDidReceiveMessage(
-    //   (message) => {
-    //     switch (message.command) {
-    //       case "alert":
-    //         vscode.window.showErrorMessage(message.text);
-    //         return;
-    //     }
-    //   },
-    //   null,
-    //   this._disposables
-    // );
+    // Handle messages from the webview
+    this._panel.webview.onDidReceiveMessage(
+      (message) => {
+        switch (message.command) {
+          case "alert":
+            vscode.window.showErrorMessage(message.text);
+            return;
+        }
+      },
+      null,
+      this._disposables
+    );
   }
 
   public dispose() {
@@ -112,6 +112,9 @@ export class HelloWorldPanel {
           }
           vscode.window.showErrorMessage(data.value);
           break;
+        }
+        default:{
+          console.log("Couldn't process");
         }
         // case "tokens": {
         //   await Util.globalState.update(accessTokenKey, data.accessToken);
@@ -152,11 +155,13 @@ export class HelloWorldPanel {
         <link href="${stylesResetUri}" rel="stylesheet">
         <link href="${stylesMainUri}" rel="stylesheet">
         <script nonce="${nonce}">
+          const tsvscode = acquireVsCodeApi();
         </script>
 			</head>
       <body>
+        <script src="${scriptUri}" nonce="${nonce}"></script>
 			</body>
-      <script src="${scriptUri}" nonce="${nonce}">
+
 			</html>`;
   }
 }
