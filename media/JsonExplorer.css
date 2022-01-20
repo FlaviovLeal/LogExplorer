@@ -1,0 +1,56 @@
+
+.sidenavopen {
+    height: 100%;
+    width: 30%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0px;
+    background-color: rgb(37,37,38);
+    overflow-x: hidden;
+    padding: 20px 10px;
+    margin-top: 0px;
+}
+.sidenavclosed {
+    height: 100%;
+    width: 0px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.mainopen {
+    margin-right: 0px; /* Same as the width of the sidenav */
+}
+
+.mainclosed {
+    margin-right: 30%; /* Same as the width of the sidenav */
+}
+.clicable {
+    cursor: pointer;
+    /* border-color: rgb(0,0,0); */
+    border-style: solid;
+    border-width: 5px;
+}
+.clicable:hover {
+    cursor: pointer;
+    border-color: rgb(0,0,0);
+    border-style: solid;
+    border-width: 5px;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    cursor: pointer;
+}
+
+tr:hover {
+    cursor: pointer;
+    background-color: rgba(128,128,128,0.1);
+}

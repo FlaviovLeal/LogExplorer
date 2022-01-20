@@ -1,4 +1,5 @@
-[
+[{"level": "info", "message": "found error", "id": 7},
+{"level": "info", "message": "found info", "id": 7},
 {"level": "error", "message": "found error", "id": 1, "optional field": "extra message"},
 {"level": "error", "message": "found error", "id": 2, "optional field": "extra message"},
 {"level": "error", "message": "found error", "id": 3},

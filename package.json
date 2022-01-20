@@ -25,6 +25,18 @@
         "command": "blueprint.HowDay",
         "title": "How is your day"
       }
+    ],
+    "customEditors": [
+      {
+        "viewType": "jsonExplorer.test",
+        "displayName": "Json Explorer",
+        "selector": [
+          {
+            "filenamePattern": "*.log"
+          }
+        ],
+        "priority": "default"
+      }
     ]
   },
   "scripts": {

@@ -130,7 +130,6 @@ export class HelloWorldPanel {
     const scriptUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this._extensionUri, "out/compiled", "HelloWorld.js")
     );
-
     // Uri to load styles into webview
     const stylesResetUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this._extensionUri, "media", "reset.css")
