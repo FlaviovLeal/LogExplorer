@@ -48,7 +48,12 @@ export class JsonExplorerEditorProvider implements vscode.CustomTextEditorProvid
 				text: document.getText(),
 			});
 		}
-
+		function updateConfig() {
+			webviewPanel.webview.postMessage({
+				type: 'config',
+				text: 'add get config'
+			});
+		}
 		// Hook up event handlers so that we can synchronize the webview with the text document.
 		//
 		// The text document acts as our model, so we have to sync change in the document to our
@@ -60,7 +65,9 @@ export class JsonExplorerEditorProvider implements vscode.CustomTextEditorProvid
 		const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(e => {
             updateWebview();
 		});
+		const changeConfig = vscode.workspace.onDidChangeConfiguration(e => {}
 
+		)
 		// Make sure we get rid of the listener when our editor is closed.
 		webviewPanel.onDidDispose(() => {
 			changeDocumentSubscription.dispose();

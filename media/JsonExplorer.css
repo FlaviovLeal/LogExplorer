@@ -50,6 +50,12 @@ td {
     cursor: pointer;
 }
 
+th {
+    text-align: justify;
+    border-width: 2px ;
+    border-color: rgba(128,128,128,0.1)
+}
+
 tr:hover {
     cursor: pointer;
     background-color: rgba(128,128,128,0.1);
