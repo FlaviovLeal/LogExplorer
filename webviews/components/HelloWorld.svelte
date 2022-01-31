@@ -2,10 +2,8 @@
     import { onMount } from 'svelte';
     let json_object: any;
     let processed_object: any;
-    let path = '';
     let input = '';
     let query = '';
-    let configclass = 'sidenavclosed';
     let logclass = 'sidenavclosed';
     let mainclass = 'mainopen';
     let highlightedlog = {};
@@ -85,29 +83,18 @@
             }
         } catch {}
     }
-
-    function openconfig() {
-        configclass = 'sidenavopen';
-        logclass = 'sidenavclosed';
-        mainclass = 'mainclosed';
-    }
     function openlog(row: any) {
         highlightedlog = row;
-        configclass = 'sidenavclosed';
         logclass = 'sidenavopen';
         mainclass = 'mainclosed';
     }
     function closenav() {
-        configclass = 'sidenavclosed';
         logclass = 'sidenavclosed';
         mainclass = 'mainopen';
     }
-
-    let variavel = '';
 </script>
 
 <div class={mainclass}>
-    <button on:click={openconfig}>Open Config {variavel}</button>
     <h3>Query input</h3>
     <input
         type="text"
@@ -136,16 +123,6 @@
             </tr>
         {/each}
     </table>
-</div>
-
-<!--config -->
-<div class={configclass}>
-    <h3>Path input</h3>
-    <p>Formated {formated}</p>
-    <p>processed_object {JSON.stringify(processed_object)}</p>
-    <p>json_object {JSON.stringify(json_object)}</p>
-    <input type="text" bind:value={path} />
-    <button on:click={closenav}>Load File</button>
 </div>
 
 <div class={logclass}>
