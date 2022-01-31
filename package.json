@@ -10,26 +10,15 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:blueprint.helloWorld",
-    "onCommand:blueprint.HowDay",
-    "onCustomEditor:jsonExplorer.test"
+    "onCustomEditor:logExplorer.test"
   ],
   "main": "./dist/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "blueprint.helloWorld",
-        "title": "Hello World"
-      },
-      {
-        "command": "blueprint.HowDay",
-        "title": "How is your day"
-      }
-    ],
+    "commands": [],
     "customEditors": [
       {
-        "viewType": "jsonExplorer.test",
-        "displayName": "Json Explorer",
+        "viewType": "logExplorer.test",
+        "displayName": "Log Explorer",
         "selector": [
           {
             "filenamePattern": "*.log"
@@ -39,9 +28,9 @@
       }
     ],
     "configuration": {
-      "title": "JsonExplorer",
+      "title": "LogExplorer",
       "properties": {
-        "jsonexplorer.ColumnsList": {
+        "logexplorer.ColumnsList": {
           "type": "array",
           "default": ["message", "level"],
           "description": "List of columns rendered"

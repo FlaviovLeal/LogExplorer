@@ -1,6 +1,6 @@
 import logging
 import logging.handlers
-from pythonjsonlogger import jsonlogger
+from json_log_formatter import JSONFormatter
 import datetime
 import os
 import time
@@ -10,7 +10,7 @@ os.remove("./example_file/logs.log")
 
 logger = logging.getLogger()
 logger.setLevel(10)
-class CustomJsonFormatter(jsonlogger.JsonFormatter):
+class CustomJsonFormatter(JSONFormatter):
     def add_fields(self, log_record, record, message_dict):
         super(CustomJsonFormatter, self).add_fields(log_record, record, message_dict)
         if not log_record.get('timestamp'):

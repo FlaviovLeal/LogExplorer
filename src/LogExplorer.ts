@@ -1,36 +1,19 @@
 import * as vscode from 'vscode';
 import { getNonce } from "./getNonce";
 
-/**
- * Provider for cat scratch editors.
- *
- * Cat scratch editors are used for `.cscratch` files, which are just json files.
- * To get started, run this extension and open an empty `.cscratch` file in VS Code.
- *
- * This provider demonstrates:
- *
- * - Setting up the initial webview for a custom editor.
- * - Loading scripts and styles in a custom editor.
- * - Synchronizing changes between a text document and a custom editor.
- */
-export class JsonExplorerEditorProvider implements vscode.CustomTextEditorProvider {
+export class LogExplorerEditorProvider implements vscode.CustomTextEditorProvider {
 	public static register(context: vscode.ExtensionContext): vscode.Disposable {
-		const provider = new JsonExplorerEditorProvider(context);
-		const providerRegistration = vscode.window.registerCustomEditorProvider(JsonExplorerEditorProvider.viewType, provider);
+		const provider = new LogExplorerEditorProvider(context);
+		const providerRegistration = vscode.window.registerCustomEditorProvider(LogExplorerEditorProvider.viewType, provider);
 		return providerRegistration;
 	}
 
-	private static readonly viewType = 'jsonExplorer.test';
+	private static readonly viewType = 'logExplorer.test';
 
 	constructor(
 		private readonly context: vscode.ExtensionContext
 	) { }
 
-	/**
-	 * Called when our custom editor is opened.
-	 * 
-	 * 
-	 */
 	public async resolveCustomTextEditor(
 		document: vscode.TextDocument,
 		webviewPanel: vscode.WebviewPanel,
@@ -51,7 +34,7 @@ export class JsonExplorerEditorProvider implements vscode.CustomTextEditorProvid
 		const updateConfig = () => {
 			webviewPanel.webview.postMessage({
 				type: 'config',
-				text: vscode.workspace.getConfiguration().get("jsonexplorer.ColumnsList")
+				text: vscode.workspace.getConfiguration().get("logexplorer.ColumnsList")
 			});
 		};
 		// Hook up event handlers so that we can synchronize the webview with the text document.
@@ -90,7 +73,7 @@ export class JsonExplorerEditorProvider implements vscode.CustomTextEditorProvid
 	private getHtmlForWebview(webview: vscode.Webview): string {
 		// Local path to script and css for the webview
 		const scriptUri = webview.asWebviewUri(vscode.Uri.joinPath(
-			this.context.extensionUri, 'out/compiled', 'HelloWorld.js'));
+			this.context.extensionUri, 'out/compiled', 'LogExplorer.js'));
 
 		const styleResetUri = webview.asWebviewUri(vscode.Uri.joinPath(
 			this.context.extensionUri, 'media', 'reset.css'));
@@ -98,8 +81,8 @@ export class JsonExplorerEditorProvider implements vscode.CustomTextEditorProvid
 		const styleVSCodeUri = webview.asWebviewUri(vscode.Uri.joinPath(
 			this.context.extensionUri, 'media', 'vscode.css'));
 
-        const styleJsonExplorerUri = webview.asWebviewUri(vscode.Uri.joinPath(
-            this.context.extensionUri, 'media', 'JsonExplorer.css'));
+        const styleLogExplorerUri = webview.asWebviewUri(vscode.Uri.joinPath(
+            this.context.extensionUri, 'media', 'LogExplorer.css'));
 
 		// Use a nonce to whitelist which scripts can be run
 		const nonce = getNonce();
@@ -117,7 +100,7 @@ export class JsonExplorerEditorProvider implements vscode.CustomTextEditorProvid
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="${styleResetUri}" rel="stylesheet">
         <link href="${styleVSCodeUri}" rel="stylesheet">
-        <link href="${styleJsonExplorerUri}" rel="stylesheet">
+        <link href="${styleLogExplorerUri}" rel="stylesheet">
         <script nonce="${nonce}">
         const tsvscode = acquireVsCodeApi();
         </script>
