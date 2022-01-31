@@ -26,7 +26,7 @@
                     process_query(query);
                     break;
                 case 'config':
-
+                    TableColumn = message.text;
                 default:
             }
         });

@@ -37,7 +37,17 @@
         ],
         "priority": "default"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "JsonExplorer",
+      "properties": {
+        "jsonexplorer.ColumnsList": {
+          "type": "array",
+          "default": ["message", "level"],
+          "description": "List of columns rendered"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",

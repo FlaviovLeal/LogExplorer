@@ -48,12 +48,12 @@ export class JsonExplorerEditorProvider implements vscode.CustomTextEditorProvid
 				text: document.getText(),
 			});
 		}
-		function updateConfig() {
+		const updateConfig = () => {
 			webviewPanel.webview.postMessage({
 				type: 'config',
-				text: 'add get config'
+				text: vscode.workspace.getConfiguration().get("jsonexplorer.ColumnsList")
 			});
-		}
+		};
 		// Hook up event handlers so that we can synchronize the webview with the text document.
 		//
 		// The text document acts as our model, so we have to sync change in the document to our
@@ -65,12 +65,13 @@ export class JsonExplorerEditorProvider implements vscode.CustomTextEditorProvid
 		const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(e => {
             updateWebview();
 		});
-		const changeConfig = vscode.workspace.onDidChangeConfiguration(e => {}
-
-		)
+		const changeConfig = vscode.workspace.onDidChangeConfiguration(e => {
+			updateConfig();
+		});
 		// Make sure we get rid of the listener when our editor is closed.
 		webviewPanel.onDidDispose(() => {
 			changeDocumentSubscription.dispose();
+			changeConfig.dispose();
 		});
 
 		// Receive message from the webview.
@@ -79,7 +80,7 @@ export class JsonExplorerEditorProvider implements vscode.CustomTextEditorProvid
 
 			}
 		});
-
+		updateConfig();
 		updateWebview();
 	}
 
@@ -126,21 +127,5 @@ export class JsonExplorerEditorProvider implements vscode.CustomTextEditorProvid
             </body>
 
         </html>`;
-	}
-
-	/**
-	 * Try to get a current document as json text.
-	 */
-	private getDocumentAsJson(document: vscode.TextDocument): any {
-		const text = document.getText();
-		if (text.trim().length === 0) {
-			return {};
-		}
-
-		try {
-			return JSON.parse(text);
-		} catch {
-			throw new Error('Could not get document as json. Content is not valid json');
-		}
 	}
 }
