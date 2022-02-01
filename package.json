@@ -1,7 +1,7 @@
 {
-  "name": "blueprint",
-  "displayName": "Blueprint",
-  "description": "Blue Print for building vscode extensions",
+  "name": "logexplorer",
+  "displayName": "Log Explorer",
+  "description": "A Custon Viewer to explore .log files",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.63.0"
@@ -32,7 +32,10 @@
       "properties": {
         "logexplorer.ColumnsList": {
           "type": "array",
-          "default": ["message", "level"],
+          "default": [
+            "message",
+            "level"
+          ],
           "description": "List of columns rendered"
         }
       }
@@ -75,7 +78,12 @@
   },
   "dependencies": {
     "@tsconfig/svelte": "^3.0.0",
+    "node.js": "^0.0.1-security",
     "svelte": "^3.44.3",
     "svelte-check": "^2.2.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FlaviovLeal/LogExplorer"
   }
 }
