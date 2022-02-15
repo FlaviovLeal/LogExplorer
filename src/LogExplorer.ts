@@ -56,15 +56,14 @@ export class LogExplorerEditorProvider implements vscode.CustomTextEditorProvide
 			changeDocumentSubscription.dispose();
 			changeConfig.dispose();
 		});
-
 		// Receive message from the webview.
 		webviewPanel.webview.onDidReceiveMessage(e => {
 			switch (e.type) {
-
+				case 'getText':
+					updateWebview();
+					updateConfig();
 			}
 		});
-		updateConfig();
-		updateWebview();
 	}
 
 	/**

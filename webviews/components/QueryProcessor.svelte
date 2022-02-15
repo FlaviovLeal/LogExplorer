@@ -1,27 +1,29 @@
-<script lang="ts">
+<script context="module" lang="ts">
     function process_assert(query_part: string, document: any): boolean {
-        const rekeyvalue = /^\s*"([\w\-\.]+)"(=|!=)"([\w,-]+)"/i;
+        const rekeyvalue = /^\s*"([\w\-\.]+)"(=|!=|<=|<|>|>=)"([\w,-]+)"/i;
         let match = query_part.match(rekeyvalue);
         if (match) {
-            console.log(match[1], match[2], match[3]);
             if (match[1] in document) {
-                if (match[2] === '=') {
-                    if (document[match[1]] === match[3]) {
-                        return true;
-                    }
-                    return false;
-                }
-                if (match[2] === '!=') {
-                    if (document[match[1]] === match[3]) {
+                switch (match[2]) {
+                    case '=':
+                        return document[match[1]] === match[3];
+                    case '!=':
+                        return document[match[1]] !== match[3];
+                    case '>':
+                        return parseFloat(document[match[1]]) > parseFloat(match[3]);
+                    case '>=':
+                        return parseFloat(document[match[1]]) >= parseFloat(match[3]);
+                    case '<':
+                        return parseFloat(document[match[1]]) < parseFloat(match[3]);
+                    case '<=':
+                        return parseFloat(document[match[1]]) <= parseFloat(match[3]);
+                    default:
                         return false;
-                    }
-                    return true;
                 }
             } else {
                 return false;
             }
         }
-        console.log('not match', query_part);
         throw new Error('Can understand statement');
     }
     function calc_or(subquery: string, document: any): boolean {
