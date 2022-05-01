@@ -5,8 +5,7 @@
     let processed_object: any;
     let input = '';
     let query = '';
-    let logclass = 'sidenavclosed';
-    let mainclass = 'mainopen';
+    let logclass = false;
     let highlightedlog = {};
     let TableColumn = ['message', 'level', 'Default'];
     let formated = '';
@@ -28,54 +27,50 @@
                     TableColumn = message.text;
                 default:
             }
-            tsvscode.postMessage({ type: 'getText', value: '' });
         });
     });
+    tsvscode.postMessage({ type: 'getText', value: '' });
     function openlog(row: any) {
         highlightedlog = row;
-        logclass = 'sidenavopen';
-        mainclass = 'mainclosed';
+        logclass = true;
     }
     function closenav() {
-        logclass = 'sidenavclosed';
-        mainclass = 'mainopen';
+        logclass = false;
     }
 </script>
 
-<div class={mainclass}>
-    <h3>Query input</h3>
-    <input
-        type="text"
-        bind:value={input}
-        on:keypress={(event) => {
-            if (event.key === 'Enter') {
-                query = input;
-                processed_object = process_query(query, json_object);
-            } else {
-            }
-        }}
-    />
-    <table>
-        <tr>
-            {#each TableColumn as column}
-                <th>{column}</th>
-            {/each}
-        </tr>
-        {#each processed_object as row}
+<div style="display:flex;">
+    <div style="flex:7;">
+        <h3>Query input</h3>
+        <input
+            type="text"
+            bind:value={input}
+            on:keypress={(event) => {
+                if (event.key === 'Enter') {
+                    query = input;
+                    processed_object = process_query(query, json_object);
+                } else {
+                }
+            }}
+        />
+        <table>
             <tr>
                 {#each TableColumn as column}
-                    <td on:click={() => openlog(row)}>{JSON.stringify(row[column])}</td>
+                    <th>{column}</th>
                 {/each}
             </tr>
-        {/each}
-    </table>
-</div>
-
-<div class={logclass}>
-    <style>
-        div {
-            white-space: pre-wrap;
-        }
-    </style>
-    <p>{JSON.stringify(highlightedlog, undefined, 4)}</p>
+            {#each processed_object as row}
+                <tr>
+                    {#each TableColumn as column}
+                        <td on:click={() => openlog(row)}>{JSON.stringify(row[column])}</td>
+                    {/each}
+                </tr>
+            {/each}
+        </table>
+    </div>
+    {#if logclass}
+        <div class="sidenav" style="flex:3; ">
+            <p>{JSON.stringify(highlightedlog, undefined, 4)}</p>
+        </div>
+    {/if}
 </div>
