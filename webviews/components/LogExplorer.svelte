@@ -28,9 +28,9 @@
                     TableColumn = message.text;
                 default:
             }
+            tsvscode.postMessage({ type: 'getText', value: '' });
         });
     });
-    tsvscode.postMessage({ type: 'getText', value: '' });
     function openlog(row: any) {
         highlightedlog = row;
         logclass = 'sidenavopen';
