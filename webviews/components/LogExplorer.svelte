@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { process_query } from './QueryProcessor.svelte';
+    import { processQuery } from './QueryProcessor';
     let json_object: any;
     let processed_object: any;
     let input = '';
@@ -21,7 +21,7 @@
                     formated = '[' + formated + ']';
                     json_object = JSON.parse(formated);
                     json_object.reverse();
-                    processed_object = process_query(query, json_object);
+                    processed_object = processQuery(query, json_object);
                     break;
                 case 'config':
                     TableColumn = message.text;
@@ -48,7 +48,7 @@
             on:keypress={(event) => {
                 if (event.key === 'Enter') {
                     query = input;
-                    processed_object = process_query(query, json_object);
+                    processed_object = processQuery(query, json_object);
                 } else {
                 }
             }}
