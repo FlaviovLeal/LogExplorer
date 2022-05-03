@@ -1,27 +1,19 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { processQuery } from './QueryProcessor';
-    let json_object: any;
-    let processed_object: any;
+    import { QueryProcessor } from './QueryProcessor';
     let input = '';
     let query = '';
     let logclass = false;
-    let highlightedlog = {};
     let TableColumn = ['message', 'level', 'Default'];
-    let formated = '';
-    json_object = [{ Default: 'Default2' }];
-    processed_object = [{ Default: 'Default' }];
+    let processor = new QueryProcessor();
+    let highlightedlog: any;
 
     onMount(() => {
         window.addEventListener('message', (event) => {
             const message = event.data;
             switch (message.type) {
                 case 'file':
-                    formated = message.text.replace(/\n/g, ',').slice(0, -1);
-                    formated = '[' + formated + ']';
-                    json_object = JSON.parse(formated);
-                    json_object.reverse();
-                    processed_object = processQuery(query, json_object);
+                    processor.formatTextInput(message.text);
                     break;
                 case 'config':
                     TableColumn = message.text;
@@ -47,9 +39,8 @@
             bind:value={input}
             on:keypress={(event) => {
                 if (event.key === 'Enter') {
-                    query = input;
-                    processed_object = processQuery(query, json_object);
-                } else {
+                    processor.query = input;
+                    processor.processQuery();
                 }
             }}
         />
@@ -59,7 +50,7 @@
                     <th>{column}</th>
                 {/each}
             </tr>
-            {#each processed_object as row}
+            {#each processor.processedObject as row}
                 <tr>
                     {#each TableColumn as column}
                         <td on:click={() => openlog(row)}>{JSON.stringify(row[column])}</td>

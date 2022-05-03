@@ -7,9 +7,9 @@ function processAssert(query_part: string, document: any): boolean {
         if (match[1] in document) {
             switch (match[2]) {
                 case '=':
-                    return document[match[1]].toString() == match[3];
+                    return document[match[1]].toString() === match[3];
                 case '!=':
-                    return document[match[1]].toString() != match[3];
+                    return document[match[1]].toString() !== match[3];
                 case '>':
                     return parseFloat(document[match[1]].toString()) > parseFloat(match[3]);
                 case '>=':
@@ -52,7 +52,7 @@ function calcAnd(subquery: string, document: any): boolean {
     return true;
 }
 
-export function processQuery(query: string, json_object: any): any {
+function processQuery(query: string, json_object: any): any {
     try {
         if (query === '') {
             return json_object;
@@ -77,20 +77,24 @@ export function processQuery(query: string, json_object: any): any {
 export class QueryProcessor {
     columns: string[];
     textInput: string;
-    jsonObject: JSON;
-    processedObject: JSON;
+    jsonObject: any;
+    processedObject: any;
+    query: string;
 
-    constructor(columns: string[], textInput: string) {
-        this.columns = columns;
-        this.textInput = textInput;
-        this.jsonObject = this.formatTextInput(textInput);
+    constructor() {
+        this.columns = [];
+        this.textInput = '';
+        this.jsonObject = [];
         this.processedObject = this.jsonObject;
+        this.query = '';
     };
-
     formatTextInput(textInput: string){
         textInput = textInput.replace(/\n/g, ',').slice(0, -1);
         textInput = '[' + textInput + ']';
-        return JSON.parse(textInput).reverse();
+        this.jsonObject = JSON.parse(textInput).reverse();
+        this.processQuery();
     };
-
+    processQuery(){
+        this.processedObject = processQuery(this.query, this.jsonObject);
+    }
 }
