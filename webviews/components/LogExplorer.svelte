@@ -1,12 +1,15 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { QueryProcessor } from './QueryProcessor';
+    import { clickOutside } from './clickOutside';
     let input = '';
-    let query = '';
     let logclass = false;
     let TableColumn = ['message', 'level', 'Default'];
     let processor = new QueryProcessor();
     let highlightedlog: any;
+    let open = false;
+    let mouse_x = '0';
+    let mouse_y = '0';
 
     onMount(() => {
         window.addEventListener('message', (event) => {
@@ -28,6 +31,15 @@
     }
     function closenav() {
         logclass = false;
+    }
+
+    function opendrop(event: any, key: any, value: any) {
+        open = true;
+        mouse_x = event.clientX.toString() + 'px';
+        mouse_y = event.clientY.toString() + 'px';
+    }
+    function closedrop() {
+        open = false;
     }
 </script>
 
@@ -60,8 +72,26 @@
         </table>
     </div>
     {#if logclass}
-        <div class="sidenav" style="flex:3; ">
-            <p>{JSON.stringify(highlightedlog, undefined, 4)}</p>
+        <div class="sidenav" style="flex:3; " use:clickOutside on:click_outside={closenav}>
+            {#each Object.keys(highlightedlog) as key}
+                <p on:click={(event) => opendrop(event, key, highlightedlog[key])}>
+                    {key + ': ' + JSON.stringify(highlightedlog[key], undefined, 4)}
+                </p>
+            {/each}
         </div>
     {/if}
 </div>
+
+{#if open}
+    <div
+        use:clickOutside
+        on:click_outside={closedrop}
+        class="dropdown-content"
+        style:top={mouse_y}
+        style:left={mouse_x}
+    >
+        <p>Link 1</p>
+        <p>Link 2</p>
+        <p>Link 3</p>
+    </div>
+{/if}
