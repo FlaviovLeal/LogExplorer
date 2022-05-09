@@ -2,7 +2,7 @@
   "name": "logexplorer",
   "displayName": "Log Explorer",
   "description": "A Custon Viewer to explore .log files",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "publisher": "FlavioLeal",
   "engines": {
     "vscode": "^1.63.0"
