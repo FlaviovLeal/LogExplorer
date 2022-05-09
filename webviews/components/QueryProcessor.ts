@@ -96,5 +96,15 @@ export class QueryProcessor {
     };
     processQuery(){
         this.processedObject = processQuery(this.query, this.jsonObject);
-    }
+    };
+    addCondition(openKey: string, openValue: string, condition: string){
+        let queryStart: string;
+        if (this.query === '') {
+            queryStart = '"';
+        } else {
+            queryStart = ' and "';
+        };
+        this.query = this.query.concat(queryStart, openKey, '"',condition,'"', openValue, '"');
+        this.processQuery();
+    };
 }

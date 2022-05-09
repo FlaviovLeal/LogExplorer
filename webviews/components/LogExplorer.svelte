@@ -10,6 +10,8 @@
     let open = false;
     let mouse_x = '0';
     let mouse_y = '0';
+    let open_key: string;
+    let open_value: string;
 
     onMount(() => {
         window.addEventListener('message', (event) => {
@@ -35,6 +37,8 @@
 
     function opendrop(event: any, key: any, value: any) {
         open = true;
+        open_key = key;
+        open_value = value;
         mouse_x = event.clientX.toString() + 'px';
         mouse_y = event.clientY.toString() + 'px';
     }
@@ -90,8 +94,75 @@
         style:top={mouse_y}
         style:left={mouse_x}
     >
-        <p>Link 1</p>
-        <p>Link 2</p>
-        <p>Link 3</p>
+        <menu class="dropdown-content">
+            <li
+                class="menu-item"
+                on:click={() => {
+                    processor.addCondition(open_key, open_value, '=');
+                    input = processor.query;
+                    closedrop();
+                    processor.processedObject = processor.processedObject;
+                }}
+            >
+                Search only value
+            </li>
+            <li
+                class="menu-item"
+                on:click={() => {
+                    processor.addCondition(open_key, open_value, '!=');
+                    input = processor.query;
+                    closedrop();
+                    processor.processedObject = processor.processedObject;
+                }}
+            >
+                Exclude value
+            </li>
+            <li
+                class="menu-item"
+                on:click={() => {
+                    processor.addCondition(open_key, open_value, '>');
+                    input = processor.query;
+                    closedrop();
+                    processor.processedObject = processor.processedObject;
+                }}
+            >
+                Greater than value
+            </li>
+            <li
+                class="menu-item"
+                on:click={() => {
+                    processor.addCondition(open_key, open_value, '>=');
+                    input = processor.query;
+                    closedrop();
+                    processor.processedObject = processor.processedObject;
+                }}
+            >
+                Greater or equal than value
+            </li>
+            <li
+                class="menu-item"
+                on:click={() => {
+                    processor.addCondition(open_key, open_value, '<');
+                    input = processor.query;
+                    closedrop();
+                    processor.processedObject = processor.processedObject;
+                }}
+            >
+                Less than value
+            </li>
+            <li
+                class="menu-item"
+                on:click={() => {
+                    processor.addCondition(open_key, open_value, '<=');
+                    input = processor.query;
+                    closedrop();
+                    processor.processedObject = processor.processedObject;
+                }}
+            >
+                Less or equal than
+            </li>
+            <li class="menu-break" style="color:gray">⸺⸺⸺⸺⸺⸺⸺</li>
+            <li class="menu-item">Inspect element (not working)</li>
+        </menu>
     </div>
 {/if}
