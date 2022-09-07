@@ -23,3 +23,6 @@ List with all columns
 ## Known Issues
 
 This is an alpha build so expect bugs. If you find anything, just open an issue.
+
+## Contributing
+If you want to contribute with any feature, just open an PR or get in contact. 
